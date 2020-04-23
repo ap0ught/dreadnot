@@ -7,23 +7,25 @@ html(lang='en')
     link(rel='stylesheet', href='/static/css/dreadnot.css', type='text/css')
     link(rel='icon', type="image/png", href='/static/dreadnot.png')
 
-    script(src='/static/js/jquery-1.7.0.min.js')
-    script(src='/static/js/bootstrap-modal.js')
+    script(src='/static/js/jquery-2.2.4.min.js')
+    script(src='/static/js/bootstrap.min.js')
+    script(src='/static/js/ansi_up.js')
     script(src='/static/js/dreadnot.js')
     block scripts
 
   body
-    div.topbar
-      div.fill
-        div.container
-          a(href='/').brand #{title}
-          ul
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      div.container
+        div.navbar-header
+          a(href='/').navbar-brand #{title}
+        div.navbar-collapse.collapse
+          ul.nav.navbar-nav
             block topnav
               li
                 a(href='/') Deploy
               li
                 a(href='/warning') Warning Message
-          p.pull-right
+          p.navbar-text.navbar-right
             - if (!user)
               | Not signed in
             - else if (user.authorized)
@@ -31,7 +33,7 @@ html(lang='en')
               a(href='/logout') log out
             - else
               a(href='/login?next=#{url}') Log in
-    
+
     div.container
       div.content
         div.page-header
@@ -45,7 +47,7 @@ html(lang='en')
 
         block warning
           - if (user && wmsg)
-            div.alert-message.block-message
+            div.alert.alert-danger.block-message
               !{helpers.markdown.toHTML(wmsg)}
 
         block content
